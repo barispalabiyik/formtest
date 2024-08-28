@@ -16,6 +16,40 @@
             formId: "1e74d639-02f8-486b-81ba-6b38192f5158",
         });
     </script>
+    <script>
+        function populateFormWithQueryParams() {
+            // Log the full query string for debugging
+            console.log("Query String:", window.location.search);
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParams = ["lead_id", "offer_id", "affiliate_id"];
+
+            // Log all parameters for debugging
+            urlParams.forEach((value, key) => {
+                console.log(`${key}: ${value}`);
+            });
+
+            queryParams.forEach((param) => {
+                const value = urlParams.get(param);
+                if (value !== null) {
+                    // Log each parameter and its value for debugging
+                    console.log(`Setting input[name=${param}] to ${value}`);
+
+                    const input = document.querySelector(`input[name=${param}]`);
+                    if (input) {
+                        input.value = value;
+                    } else {
+                        console.log(`Input with name ${param} not found`);
+                    }
+                } else {
+                    console.log(`Parameter ${param} not found in the URL`);
+                }
+            });
+        }
+
+        // Call the function when the document is fully loaded
+        document.addEventListener("DOMContentLoaded", populateFormWithQueryParams);
+    </script>
 </body>
 
 </html>
